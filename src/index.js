@@ -11,22 +11,9 @@ import './index.css';
 ReactDOM.render(
   <Router>
     <div>
-      {/* <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-        <li>
-          <Link to="/signup">Signup</Link>
-        </li>
-      </ul>
-
-      <hr /> */}
       <Route exact path="/" component={App} />
-      <Route path="/login" component={Login} />
-      <Route path="/signup" component={Signup} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/signup" component={Signup} />
     </div>
   </Router>,
   document.getElementById('root')
