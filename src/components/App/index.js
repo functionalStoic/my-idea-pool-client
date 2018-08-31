@@ -1,9 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default () => {
-  return <Header>My Ideas</Header>;
-};
+import AppWrapper from '../shared/AppWrapper';
+
+export default () => (
+  <AppWrapper>
+    <Header>My Ideas</Header>
+  </AppWrapper>
+);
 
 const Header = styled.div`
   font-size: 28px;
