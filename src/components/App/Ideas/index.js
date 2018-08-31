@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 import EmptyState from './EmptyState';
+import IdeaList from './IdeaList';
 
-export default () => {
-  return (
-    <Wrapper>
-      <EmptyState />
-    </Wrapper>
-  );
-};
+export default () => (
+  <Wrapper>
+    <EmptyState />
+    <IdeaList ideas={undefined} />
+  </Wrapper>
+);
 
 const Wrapper = styled.div`
   flex-grow: 1;
