@@ -1,19 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Login from './Login';
-import Signup from './Signup';
+import AuthPages from './AuthPages';
 import Ideas from './Ideas';
 
 export default () => (
   <Wrapper>
-    <Login />
-    <Signup />
+    <AuthPages />
     <Ideas />
   </Wrapper>
 );
 
 const Wrapper = styled.div`
-  width: '100vw';
-  text-align: 'center';
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  text-align: center;
+  justify-content: space-evenly;
 `;
