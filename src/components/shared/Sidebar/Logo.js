@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import IdeaPoolIcon from './IdeaPool_icon.png';
 import IdeaPoolIcon2X from './IdeaPool_icon@2x.png';
 
