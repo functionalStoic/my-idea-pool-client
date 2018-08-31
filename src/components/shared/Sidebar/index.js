@@ -4,17 +4,18 @@ import { Link } from 'react-router-dom';
 
 import Logo from './Logo';
 import Slogan from './Slogan';
+import UserProfileImg from './UserProfileImg';
 
-export default () => {
-  return (
-    <Wrapper>
-      <Link to="/">
-        <Logo />
-        <Slogan />
-      </Link>
-    </Wrapper>
-  );
-};
+export default () => (
+  <Wrapper>
+    <Link to="/">
+      <Logo />
+      <Slogan />
+    </Link>
+    <HR />
+    <UserProfileImg />
+  </Wrapper>
+);
 
 const Wrapper = styled.div`
   text-align: center;
@@ -24,4 +25,9 @@ const Wrapper = styled.div`
   a {
     text-decoration: none;
   }
+`;
+
+const HR = styled.hr`
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 41px 27px;
 `;
