@@ -3,13 +3,20 @@ import styled from 'styled-components';
 
 import AppWrapper from '../shared/AppWrapper';
 
+import Header from './Header';
+import Ideas from './Ideas';
+
 export default () => (
   <AppWrapper>
-    <Header>My Ideas</Header>
+    <Wrapper>
+      <Header />
+      <Ideas />
+    </Wrapper>
   </AppWrapper>
 );
 
-const Header = styled.div`
-  font-size: 28px;
-  color: #2a3842;
+const Wrapper = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 `;
