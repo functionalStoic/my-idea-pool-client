@@ -1,20 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 import UserProfilePic from './User_ProfilePic.png';
 import UserProfilePic2X from './User_ProfilePic@2x.png';
 
-export default () => (
-  <Wrapper>
-    <Img
-      src={UserProfilePic}
-      srcSet={`${UserProfilePic2X} 2x`}
-      alt="Idea Pool Icon"
-    />
+import AuthService from '../../shared/AuthService';
 
-    <UserNameWrapper>Joyce Lee</UserNameWrapper>
-    <LogoutWrapper>Log out</LogoutWrapper>
-  </Wrapper>
-);
+export default class UserProfileImg extends Component {
+  Auth = new AuthService();
+
+  handleLogout = () => {
+    this.Auth.logout();
+
+    this.props.history.replace('/login');
+  };
+
+  render() {
+    return (
+      <Wrapper>
+        <Img
+          src={UserProfilePic}
+          srcSet={`${UserProfilePic2X} 2x`}
+          alt="Idea Pool Icon"
+        />
+
+        <UserNameWrapper>Joyce Lee</UserNameWrapper>
+        <LogoutWrapper onClick={this.handleLogout}>Log out</LogoutWrapper>
+      </Wrapper>
+    );
+  }
+}
 
 const Wrapper = styled.div``;
 

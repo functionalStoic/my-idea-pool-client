@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -6,28 +6,34 @@ import Logo from './Logo';
 import Slogan from './Slogan';
 import UserProfileImg from './UserProfileImg';
 
-export default () => (
-  <Wrapper>
-    <Link to="/">
-      <Logo />
-      <Slogan />
-    </Link>
-    <HR />
-    <UserProfileImg />
+export default props => {
+  return (
+    <Wrapper>
+      <Link to="/">
+        <Logo />
+        <Slogan />
+      </Link>
+      {props.loggedIn && (
+        <Fragment>
+          <HR />
+          <UserProfileImg {...props} />
+        </Fragment>
+      )}
 
-    <ul style={{ justifyContent: 'flex-end' }}>
-      <li>
-        <Link to="/">Home</Link>
-      </li>
-      <li>
-        <Link to="/login">Login</Link>
-      </li>
-      <li>
-        <Link to="/signup">Signup</Link>
-      </li>
-    </ul>
-  </Wrapper>
-);
+      {/* <ul style={{ justifyContent: 'flex-end' }}>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/login">Login</Link>
+        </li>
+        <li>
+          <Link to="/signup">Signup</Link>
+        </li>
+      </ul> */}
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.div`
   text-align: center;

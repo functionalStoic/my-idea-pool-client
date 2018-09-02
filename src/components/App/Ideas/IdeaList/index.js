@@ -11,7 +11,7 @@ export default ({
       <Wrapper>
         Title Impact Ease Confidence Avg.
         {ideas.map(idea => (
-          <Idea idea={idea} />
+          <Idea key={idea.title} idea={idea} />
         ))}
       </Wrapper>
     )

@@ -7,12 +7,14 @@ const AppWrapper = styled.div`
   display: flex;
 `;
 
-export default ({ children }) => (
-  <AppWrapper>
-    <Sidebar />
-    <Wrapper>{children}</Wrapper>
-  </AppWrapper>
-);
+export default props => {
+  return (
+    <AppWrapper>
+      <Sidebar {...props} />
+      <Wrapper>{props.children}</Wrapper>
+    </AppWrapper>
+  );
+};
 
 const Wrapper = styled.div`
   flex-grow: 1;
