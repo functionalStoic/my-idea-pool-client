@@ -12,16 +12,20 @@ import {
   // LOGOUT
   LOGOUT_SUCCESS,
   LOGOUT_FAILURE,
-  LOGOUT_REQUEST
+  LOGOUT_REQUEST,
+  // GET USER INFO
+  GET_USER_SUCCESS,
+  GET_USER_FAILURE,
+  GET_USER_REQUEST
 } from '../constants';
 
-export default function auth(
-  state = {
-    isFetching: false,
-    isAuthenticated: isAuthActive()
-  },
-  action
-) {
+const initialAuthState = {
+  isFetching: false,
+  isAuthenticated: isAuthActive(),
+  user: {}
+};
+
+export default (state = initialAuthState, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
       return {
@@ -49,12 +53,14 @@ export default function auth(
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated
       };
+
     case SIGNUP_SUCCESS:
       return {
         ...state,
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated
       };
+
     case SIGNUP_FAILURE:
       return {
         ...state,
@@ -84,7 +90,25 @@ export default function auth(
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated
       };
+
+    case GET_USER_REQUEST:
+      return {
+        ...state,
+        isFetching: action.isFetching
+      };
+    case GET_USER_SUCCESS:
+      return {
+        ...state,
+        isFetching: action.isFetching,
+        user: action.user
+      };
+    case GET_USER_FAILURE:
+      return {
+        ...state,
+        isFetching: action.isFetching,
+        errorMessage: action.errorMessage
+      };
     default:
       return state;
   }
-}
+};
