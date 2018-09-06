@@ -21,7 +21,7 @@ import {
 function auth(
   state = {
     isFetching: false,
-    isAuthenticated: localStorage.getItem('jwt') ? true : false
+    isAuthenticated: localStorage.getItem('access_token') ? true : false
   },
   action
 ) {

@@ -34,20 +34,20 @@ export function logoutUser() {
   return dispatch => {
     dispatch(requestLogout());
     try {
-      const jwt = localStorage.getItem('jwt');
+      const access_token = localStorage.getItem('access_token');
       const refresh_token = localStorage.getItem('refresh_token');
 
       return fetch(`${API_DOMAIN}/access-tokens`, {
         method: 'DELETE',
         headers: {
-          'X-Access-Token': jwt,
+          'X-Access-Token': access_token,
           'Content-Type': 'application/json',
           Accept: 'application/json'
         },
         body: JSON.stringify({ refresh_token })
       })
         .then(() => {
-          localStorage.removeItem('jwt');
+          localStorage.removeItem('access_token');
           localStorage.removeItem('refresh_token');
           dispatch(logoutSuccess());
         })

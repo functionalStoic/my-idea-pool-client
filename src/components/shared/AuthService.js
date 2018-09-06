@@ -22,7 +22,7 @@ export default class AuthService {
   };
 
   // Retrieves the user token from localStorage
-  getToken = () => localStorage.getItem('jwt');
+  getToken = () => localStorage.getItem('access_token');
 
   fetch = (url, options) => {
     // performs api calls sending the required authentication headers

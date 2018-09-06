@@ -45,8 +45,8 @@ export function signupUser({ name, email, password }) {
       .then(({ reason, jwt, refresh_token }) => {
         if (reason) throw new Error(reason);
 
-        // Set jwt & refresh token in local storage
-        localStorage.setItem('jwt', jwt);
+        // Set access & refresh tokens in local storage
+        localStorage.setItem('access_token', jwt);
         localStorage.setItem('refresh_token', refresh_token);
 
         // Dispatch success action

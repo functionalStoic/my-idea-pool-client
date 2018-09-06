@@ -19,13 +19,13 @@ class App extends Component {
   // Checks if there is a saved token and that it's still valid
   loggedIn = () => {
     // Get token from localstorage
-    const token = localStorage.getItem('jwt');
-    return !!token && !this.isTokenExpired(token);
+    const access_token = localStorage.getItem('access_token');
+    return !!access_token && !this.isTokenExpired(access_token);
   };
 
-  isTokenExpired = token => {
+  isTokenExpired = access_token => {
     try {
-      const { exp } = decode(token);
+      const { exp } = decode(access_token);
       if (exp < Date.now() / 1000) {
         this.props.dispatch(logoutUser());
         return true;
