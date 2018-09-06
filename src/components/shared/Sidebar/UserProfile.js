@@ -2,21 +2,18 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import UserProfilePic from './User_ProfilePic.png';
 import UserProfilePic2X from './User_ProfilePic@2x.png';
+import { logoutUser } from '../../../actions';
 
-import AuthService from '../../shared/AuthService';
-
-export default class UserProfileImg extends Component {
-  Auth = new AuthService();
-
-  handleLogout = () => {
-    this.Auth.logout();
+export default class UserProfile extends Component {
+  handleLogout = async () => {
+    await this.props.dispatch(logoutUser());
 
     this.props.history.replace('/login');
   };
 
   render() {
     return (
-      <Wrapper>
+      <div>
         <Img
           src={UserProfilePic}
           srcSet={`${UserProfilePic2X} 2x`}
@@ -25,12 +22,10 @@ export default class UserProfileImg extends Component {
 
         <UserNameWrapper>Joyce Lee</UserNameWrapper>
         <LogoutWrapper onClick={this.handleLogout}>Log out</LogoutWrapper>
-      </Wrapper>
+      </div>
     );
   }
 }
-
-const Wrapper = styled.div``;
 
 const UserNameWrapper = styled.div`
   font-size: 20px;

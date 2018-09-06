@@ -1,23 +1,52 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
-
-import withAuth from '../shared/withAuth';
+import { connect } from 'react-redux';
+import { logoutUser } from '../../actions';
+import decode from 'jwt-decode';
 
 import AppWrapper from '../shared/AppWrapper';
 
 import Header from './Header';
 import Ideas from './Ideas';
 
-const App = props => {
-  return (
-    <AppWrapper {...props}>
-      <Wrapper>
-        <Header />
-        <Ideas />
-      </Wrapper>
-    </AppWrapper>
-  );
-};
+class App extends Component {
+  componentDidMount() {
+    if (!this.props.isAuthenticated || !this.loggedIn()) {
+      this.props.history.replace('/login');
+    }
+  }
+
+  // Checks if there is a saved token and that it's still valid
+  loggedIn = () => {
+    // Get token from localstorage
+    const token = localStorage.getItem('jwt');
+    return !!token && !this.isTokenExpired(token);
+  };
+
+  isTokenExpired = token => {
+    try {
+      const { exp } = decode(token);
+      if (exp < Date.now() / 1000) {
+        this.props.dispatch(logoutUser());
+        return true;
+      }
+      return false;
+    } catch (err) {
+      return true;
+    }
+  };
+
+  render() {
+    return (
+      <AppWrapper {...this.props}>
+        <Wrapper>
+          <Header />
+          <Ideas />
+        </Wrapper>
+      </AppWrapper>
+    );
+  }
+}
 
 const Wrapper = styled.div`
   height: 100vh;
@@ -25,4 +54,10 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-export default withAuth(App);
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  };
+};
+
+export default connect(mapStateToProps)(App);

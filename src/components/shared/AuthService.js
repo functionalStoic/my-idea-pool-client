@@ -1,20 +1,6 @@
 import decode from 'jwt-decode';
 
-// API server domain
-const API_DOMAIN = 'https://small-project-api.herokuapp.com';
-
 export default class AuthService {
-  // Get a token from api server using the fetch api
-  login = (email, password) =>
-    this.fetch(`${API_DOMAIN}/access-tokens`, {
-      method: 'POST',
-      body: JSON.stringify({ email, password })
-    }).then(res => {
-      // Setting the token in localStorage
-      this.setToken(res);
-      return Promise.resolve(res);
-    });
-
   // Checks if there is a saved token and that it's still valid
   loggedIn = () => {
     // Get token from localstorage
@@ -26,7 +12,6 @@ export default class AuthService {
     try {
       const { exp } = decode(token);
       if (exp < Date.now() / 1000) {
-        console.log('expired');
         // Checking if token is expired. N
         return true;
       }
@@ -36,33 +21,8 @@ export default class AuthService {
     }
   };
 
-  // Saves user token to localStorage
-  setToken = ({ jwt, refresh_token }) => {
-    localStorage.setItem('jwt', jwt);
-    localStorage.setItem('refresh_token', refresh_token);
-  };
-
   // Retrieves the user token from localStorage
   getToken = () => localStorage.getItem('jwt');
-  getRefreshToken = () => localStorage.getItem('refresh_token');
-
-  refreshToken = async () => {
-    const refresh_token = await this.getRefreshToken();
-    debugger;
-    this.fetch(`${API_DOMAIN}/access-tokens/refresh`, {
-      method: 'POST',
-      body: JSON.stringify({ refresh_token })
-    }).then(res => {
-      // Setting the token in localStorage
-      this.setToken({ jwt: res.jwt, refresh_token });
-      return Promise.resolve(res);
-    });
-  };
-  // Clear user token and profile data from localStorage
-  logout = () => {
-    localStorage.removeItem('jwt');
-    localStorage.removeItem('refresh_token');
-  };
 
   fetch = (url, options) => {
     // performs api calls sending the required authentication headers

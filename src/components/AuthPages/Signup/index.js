@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { signupUser } from '../../../actions';
+
 import { Formik } from 'formik';
 
 import AppWrapper from '../../shared/AppWrapper';
@@ -11,13 +14,11 @@ import ActionButtonWrapper from '../shared/ActionButtonWrapper';
 import SubmitButton from '../shared/SubmitButton';
 import RedirectMessage from '../shared/RedirectMessage';
 
-import AuthService from '../../shared/AuthService';
-
-export default class Signup extends Component {
-  Auth = new AuthService();
-
-  componentWillMount() {
-    if (this.Auth.loggedIn()) this.props.history.replace('/');
+class Signup extends Component {
+  componentDidMount() {
+    if (this.props.isAuthenticated) {
+      this.props.history.replace('/');
+    }
   }
 
   render() {
@@ -43,10 +44,15 @@ export default class Signup extends Component {
             }
             return errors;
           }}
-          onSubmit={(
-            values,
-            { setSubmitting, setErrors /* setValues and other goodies */ }
+          onSubmit={async (
+            values
+            // { setSubmitting, setErrors /* setValues and other goodies */ }
           ) => {
+            await this.props.dispatch(signupUser(values));
+
+            if (this.props.isAuthenticated) {
+              this.props.history.replace('/');
+            }
             // LoginToMyApp(values).then(
             //   user => {
             //     setSubmitting(false);
@@ -73,8 +79,7 @@ export default class Signup extends Component {
             touched,
             handleChange,
             handleBlur,
-            handleSubmit,
-            isSubmitting
+            handleSubmit
           }) => (
             <form onSubmit={handleSubmit}>
               <InputsWrapper>
@@ -107,8 +112,9 @@ export default class Signup extends Component {
                   value={values.password}
                 />
               </InputsWrapper>
+              {this.props.errorMessage && `${this.props.errorMessage}`}
               <ActionButtonWrapper>
-                <SubmitButton type="submit" disabled={isSubmitting}>
+                <SubmitButton type="submit" disabled={this.props.isFetching}>
                   SIGN UP
                 </SubmitButton>
                 <RedirectMessage>
@@ -122,3 +128,12 @@ export default class Signup extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ auth }) => {
+  return {
+    isFetching: auth.isFetching,
+    isAuthenticated: auth.isAuthenticated,
+    errorMessage: auth.errorMessage
+  };
+};
+export default connect(mapStateToProps)(Signup);

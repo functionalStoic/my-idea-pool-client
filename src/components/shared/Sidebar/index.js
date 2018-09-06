@@ -1,39 +1,36 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import Logo from './Logo';
 import Slogan from './Slogan';
-import UserProfileImg from './UserProfileImg';
+import UserProfile from './UserProfile';
 
-export default props => {
+const Sidebar = props => {
   return (
     <Wrapper>
       <Link to="/">
         <Logo />
         <Slogan />
       </Link>
-      {props.loggedIn && (
+      {props.isAuthenticated && (
         <Fragment>
           <HR />
-          <UserProfileImg {...props} />
+          <UserProfile {...props} />
         </Fragment>
       )}
-
-      {/* <ul style={{ justifyContent: 'flex-end' }}>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/login">Login</Link>
-        </li>
-        <li>
-          <Link to="/signup">Signup</Link>
-        </li>
-      </ul> */}
     </Wrapper>
   );
 };
+
+const mapStateToProps = state => {
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  };
+};
+
+export default connect(mapStateToProps)(Sidebar);
 
 const Wrapper = styled.div`
   text-align: center;

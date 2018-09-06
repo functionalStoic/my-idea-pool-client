@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import { connect } from 'react-redux';
+import { loginUser } from '../../../actions';
+
 import AppWrapper from '../../shared/AppWrapper';
 
 import Header from '../shared/Header';
@@ -9,45 +12,56 @@ import Input from '../shared/Input';
 import SubmitButton from '../shared/SubmitButton';
 import RedirectMessage from '../shared/RedirectMessage';
 import ActionButtonWrapper from '../shared/ActionButtonWrapper';
-import AuthService from '../../shared/AuthService';
 
-export default class Login extends Component {
+class Login extends Component {
   state = { email: '', password: '' };
-  Auth = new AuthService();
-
-  handleFormSubmit = e => {
-    e.preventDefault();
-
-    this.Auth.login(this.state.email, this.state.password)
-      .then(res => this.props.history.replace('/'))
-      .catch(err => alert(err));
-  };
 
   componentWillMount() {
-    if (this.Auth.loggedIn()) this.props.history.replace('/');
+    if (this.props.isAuthenticated) {
+      this.props.history.replace('/');
+    }
   }
 
-  handleChange = key => ({ target }) => this.setState({ [key]: target.value });
+  handleSubmit = async e => {
+    e.preventDefault();
+
+    await this.props.dispatch(loginUser(this.state));
+
+    if (this.props.isAuthenticated) {
+      this.props.history.replace('/');
+    }
+  };
+
+  handleChange = ({ target: { type, value } }) =>
+    this.setState({ [type]: value });
 
   render() {
+    const {
+      handleSubmit,
+      handleChange,
+      props: { isAuthenticated, errorMessage, isFetching }
+    } = this;
     return (
-      <AppWrapper loggedIn={this.Auth.loggedIn()}>
+      <AppWrapper loggedIn={isAuthenticated}>
         <Header>Log In</Header>
-        <form onSubmit={this.handleFormSubmit}>
+        <form onSubmit={handleSubmit}>
           <InputsWrapper>
+            <Input onChange={handleChange} type="email" placeholder="Email" />
             <Input
-              onChange={this.handleChange('email')}
-              type="email"
-              placeholder="Email"
-            />
-            <Input
-              onChange={this.handleChange('password')}
+              onChange={handleChange}
               type="password"
               placeholder="Password"
             />
           </InputsWrapper>
+          {errorMessage && `${errorMessage}`}
           <ActionButtonWrapper>
-            <SubmitButton type="submit">LOG IN</SubmitButton>
+            <SubmitButton
+              isFetching={isFetching}
+              disabled={isFetching}
+              type="submit"
+            >
+              {isFetching ? 'Loading...' : 'LOG IN'}
+            </SubmitButton>
             <RedirectMessage>
               Don't have an account? <Link to="/signup">Create an account</Link>
             </RedirectMessage>
@@ -57,3 +71,11 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ auth }) => ({
+  isFetching: auth.isFetching,
+  isAuthenticated: auth.isAuthenticated,
+  errorMessage: auth.errorMessage
+});
+
+export default connect(mapStateToProps)(Login);
