@@ -1,28 +1,39 @@
-import React, { Fragment } from 'react';
+import React, { Component, Fragment } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+
 import { connect } from 'react-redux';
+import { getUserInfo } from '../../../actions';
 
 import Logo from './Logo';
 import Slogan from './Slogan';
 import UserProfile from './UserProfile';
 
-const Sidebar = props => {
-  return (
-    <Wrapper>
-      <Link to="/">
-        <Logo />
-        <Slogan />
-      </Link>
-      {props.isAuthenticated && (
-        <Fragment>
-          <HR />
-          <UserProfile {...props} />
-        </Fragment>
-      )}
-    </Wrapper>
-  );
-};
+class Sidebar extends Component {
+  componentDidMount() {
+    if (this.props.isAuthenticated) {
+      // Get User Info on load
+      this.props.dispatch(getUserInfo());
+    }
+  }
+
+  render() {
+    return (
+      <Wrapper>
+        <Link to="/">
+          <Logo />
+          <Slogan />
+        </Link>
+        {this.props.isAuthenticated && (
+          <Fragment>
+            <HR />
+            <UserProfile {...this.props} />
+          </Fragment>
+        )}
+      </Wrapper>
+    );
+  }
+}
 
 const mapStateToProps = ({ auth }) => {
   return {
