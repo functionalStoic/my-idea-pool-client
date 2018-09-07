@@ -1,5 +1,3 @@
-import { isAuthActive } from './utils';
-
 import {
   // LOGIN
   LOGIN_REQUEST,
@@ -16,13 +14,18 @@ import {
   // GET USER INFO
   GET_USER_SUCCESS,
   GET_USER_FAILURE,
-  GET_USER_REQUEST
+  GET_USER_REQUEST,
+  // TOKEN REFRESH
+  TOKEN_REFRESH_REQUEST,
+  TOKEN_REFRESH_SUCCESS,
+  TOKEN_REFRESH_FAILURE
 } from '../constants';
 
 const initialAuthState = {
   isFetching: false,
-  isAuthenticated: isAuthActive(),
-  user: {}
+  isAuthenticated: localStorage.getItem('access_token') ? true : false,
+  access_token: localStorage.getItem('access_token'),
+  refresh_token: localStorage.getItem('refresh_token')
 };
 
 export default (state = initialAuthState, action) => {
@@ -30,14 +33,15 @@ export default (state = initialAuthState, action) => {
     case LOGIN_REQUEST:
       return {
         ...state,
-        isFetching: action.isFetching,
-        isAuthenticated: action.isAuthenticated
+        isFetching: action.isFetching
       };
     case LOGIN_SUCCESS:
       return {
         ...state,
         isFetching: action.isFetching,
-        isAuthenticated: action.isAuthenticated
+        isAuthenticated: action.isAuthenticated,
+        access_token: action.access_token,
+        refresh_token: action.refresh_token
       };
     case LOGIN_FAILURE:
       return {
@@ -58,7 +62,9 @@ export default (state = initialAuthState, action) => {
       return {
         ...state,
         isFetching: action.isFetching,
-        isAuthenticated: action.isAuthenticated
+        isAuthenticated: action.isAuthenticated,
+        access_token: action.access_token,
+        refresh_token: action.refresh_token
       };
 
     case SIGNUP_FAILURE:
@@ -72,15 +78,13 @@ export default (state = initialAuthState, action) => {
     case LOGOUT_REQUEST:
       return {
         ...state,
-        isFetching: action.isFetching,
-        isAuthenticated: action.isAuthenticated
+        isFetching: action.isFetching
       };
 
     case LOGOUT_FAILURE:
       return {
         ...state,
         isFetching: action.isFetching,
-        isAuthenticated: action.isAuthenticated,
         errorMessage: action.errorMessage
       };
 
@@ -88,7 +92,10 @@ export default (state = initialAuthState, action) => {
       return {
         ...state,
         isFetching: action.isFetching,
-        isAuthenticated: action.isAuthenticated
+        isAuthenticated: action.isAuthenticated,
+        access_token: undefined,
+        refresh_token: undefined,
+        user: {}
       };
 
     case GET_USER_REQUEST:
@@ -107,6 +114,27 @@ export default (state = initialAuthState, action) => {
         ...state,
         isFetching: action.isFetching,
         errorMessage: action.errorMessage
+      };
+
+    case TOKEN_REFRESH_REQUEST:
+      return {
+        ...state,
+        isFetching: action.isFetching
+      };
+    case TOKEN_REFRESH_SUCCESS:
+      return {
+        ...state,
+        isFetching: action.isFetching,
+        access_token: action.access_token
+      };
+    case TOKEN_REFRESH_FAILURE:
+      return {
+        ...state,
+        isFetching: action.isFetching,
+        isAuthenticated: action.isAuthenticated,
+        access_token: action.access_token,
+        refresh_token: action.refresh_token,
+        errorMessage: action.message
       };
     default:
       return state;
