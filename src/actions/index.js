@@ -1,9 +1,4 @@
-import { signupUser as signupUserRef } from './signup';
-import { loginUser as loginUserRef } from './login';
-import { logoutUser as logoutUserRef } from './logout';
-import { getUserInfo as getUserInfoRef } from './getUserInfo';
-
-export const signupUser = signupUserRef;
-export const loginUser = loginUserRef;
-export const logoutUser = logoutUserRef;
-export const getUserInfo = getUserInfoRef;
+export { signupUser } from './auth/signup';
+export { loginUser } from './auth/login';
+export { logoutUser } from './auth/logout';
+export { getUserInfo } from './auth/getUserInfo';
