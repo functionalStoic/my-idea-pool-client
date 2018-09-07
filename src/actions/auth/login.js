@@ -1,4 +1,4 @@
-import AuthApi from '../../api/auth.api';
+import { AuthApi } from '../../api';
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '../../constants';
 
 function requestLogin() {

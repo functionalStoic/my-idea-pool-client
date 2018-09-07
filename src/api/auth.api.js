@@ -1,6 +1,6 @@
-import axiosInstance from './axiosInstance';
+import axiosInstance from './utils/axiosInstance';
 
-export default class AuthApi {
+export class AuthApi {
   static async login(email, password) {
     try {
       const { data } = await axiosInstance.post('/access-tokens', {

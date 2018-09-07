@@ -1,4 +1,4 @@
-import AuthApi from '../../api/auth.api';
+import { AuthApi } from '../../api';
 
 import {
   GET_USER_REQUEST,

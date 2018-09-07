@@ -1,4 +1,5 @@
-import AuthApi from '../../api/auth.api';
+import { AuthApi } from '../../api';
+
 import {
   SIGNUP_REQUEST,
   SIGNUP_SUCCESS,

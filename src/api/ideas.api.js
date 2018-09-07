@@ -1,6 +1,6 @@
-import axiosInstance from './axiosInstance';
+import axiosInstance from './utils/axiosInstance';
 
-export default class AuthApi {
+export class IdeasApi {
   static async createIdea(content, impact, ease, confidence) {
     try {
       const { data } = await axiosInstance.post('/ideas', {
