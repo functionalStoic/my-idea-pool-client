@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import { logoutUser } from '../../../actions';
+import { logoutUser, getUserInfo } from '../../../actions';
 
 export default class UserProfile extends Component {
+  componentDidMount() {
+    if (this.props.isAuthenticated) {
+      // Get User Info on load
+      this.props.dispatch(getUserInfo());
+    }
+  }
+
   handleLogout = async () => {
     await this.props.dispatch(logoutUser());
     this.props.history.replace('/login');
@@ -13,19 +20,22 @@ export default class UserProfile extends Component {
     const { isFetching, user } = this.props;
 
     if (isFetching) return 'Loading...';
+    if (user)
+      return (
+        user && (
+          <div>
+            <Img
+              src={user.avatar_url}
+              srcSet={`${user.avatar_url} 2x`}
+              alt="Idea Pool Icon"
+            />
 
-    return (
-      <div>
-        <Img
-          src={user.avatar_url}
-          srcSet={`${user.avatar_url} 2x`}
-          alt="Idea Pool Icon"
-        />
-
-        <UserNameWrapper>{user.name}</UserNameWrapper>
-        <LogoutWrapper onClick={this.handleLogout}>Log out</LogoutWrapper>
-      </div>
-    );
+            <UserNameWrapper>{user.name}</UserNameWrapper>
+            <LogoutWrapper onClick={this.handleLogout}>Log out</LogoutWrapper>
+          </div>
+        )
+      );
+    return null;
   }
 }
 
