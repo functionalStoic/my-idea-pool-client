@@ -1,5 +1,9 @@
 export const API_DOMAIN = 'https://small-project-api.herokuapp.com';
 
+export const TOKEN_REFRESH_REQUEST = 'TOKEN_REFRESH_REQUEST';
+export const TOKEN_REFRESH_SUCCESS = 'TOKEN_REFRESH_SUCCESS';
+export const TOKEN_REFRESH_FAILURE = 'TOKEN_REFRESH_FAILURE';
+
 export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
