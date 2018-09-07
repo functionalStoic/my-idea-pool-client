@@ -3,9 +3,9 @@ import {
   TOKEN_REFRESH_REQUEST,
   TOKEN_REFRESH_SUCCESS,
   TOKEN_REFRESH_FAILURE
-} from '../constants';
+} from '../../constants';
 
-import store from '../store';
+import store from '../../store';
 import axios from 'axios';
 
 const axiosInstance = axios.create({
