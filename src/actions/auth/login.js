@@ -18,12 +18,12 @@ function loginSuccess(tokens) {
   };
 }
 
-function loginError(message) {
+function loginError(errorMessage) {
   return {
     type: LOGIN_FAILURE,
     isFetching: false,
     isAuthenticated: false,
-    message
+    errorMessage
   };
 }
 

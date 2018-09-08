@@ -21,11 +21,11 @@ function userInfoSuccess(user) {
   };
 }
 
-function userInfoError(message) {
+function userInfoError(errorMessage) {
   return {
     type: GET_USER_FAILURE,
     isFetching: false,
-    message
+    errorMessage
   };
 }
 

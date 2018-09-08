@@ -21,15 +21,16 @@ function updateIdeaSuccess(idea) {
   };
 }
 
-function updateIdeaError(message) {
+function updateIdeaError(errorMessage) {
   return {
     type: UPDATE_IDEA_FAILURE,
     isFetching: false,
-    message
+    errorMessage
   };
 }
 
 export const updateIdea = ({
+  id,
   content,
   impact,
   ease,

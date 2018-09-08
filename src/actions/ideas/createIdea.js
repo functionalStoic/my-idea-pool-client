@@ -21,11 +21,11 @@ function createIdeaSuccess(idea) {
   };
 }
 
-function createIdeaError(message) {
+function createIdeaError(errorMessage) {
   return {
     type: CREATE_IDEA_FAILURE,
     isFetching: false,
-    message
+    errorMessage
   };
 }
 

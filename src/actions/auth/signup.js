@@ -23,12 +23,12 @@ function signupSuccess(tokens) {
   };
 }
 
-function signupError(message) {
+function signupError(errorMessage) {
   return {
     type: SIGNUP_FAILURE,
     isFetching: false,
     isAuthenticated: false,
-    message
+    errorMessage
   };
 }
 

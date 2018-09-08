@@ -48,7 +48,7 @@ export default (state = initialAuthState, action) => {
         ...state,
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
-        errorMessage: action.message
+        errorMessage: action.errorMessage
       };
 
     case SIGNUP_REQUEST:
@@ -72,7 +72,7 @@ export default (state = initialAuthState, action) => {
         ...state,
         isFetching: action.isFetching,
         isAuthenticated: action.isAuthenticated,
-        errorMessage: action.message
+        errorMessage: action.errorMessage
       };
 
     case LOGOUT_REQUEST:
@@ -134,7 +134,7 @@ export default (state = initialAuthState, action) => {
         isAuthenticated: action.isAuthenticated,
         access_token: action.access_token,
         refresh_token: action.refresh_token,
-        errorMessage: action.message
+        errorMessage: action.errorMessage
       };
     default:
       return state;
