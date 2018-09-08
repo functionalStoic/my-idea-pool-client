@@ -14,7 +14,10 @@ import {
 } from '../constants';
 
 // The ideas reducer
-export default function ideas(state = [], action) {
+export default function ideas(
+  state = { isFetching: false, ideas: [...ideaList], errorMessage: undefined },
+  action
+) {
   switch (action.type) {
     case CREATE_IDEA_REQUEST:
       return {
@@ -90,3 +93,33 @@ export default function ideas(state = [], action) {
       return state;
   }
 }
+
+const ideaList = [
+  {
+    id: 'ir9td2tvq',
+    content: 'Finish Ideas Layout',
+    impact: 3,
+    ease: 8,
+    confidence: 8,
+    average_score: 6.333333333333333,
+    created_at: 1524210786
+  },
+  {
+    id: 'ir9td2p51',
+    content: 'Build Redux State, Reducers and Actions.',
+    impact: 2,
+    ease: 8,
+    confidence: 8,
+    average_score: 6.0,
+    created_at: 1524210786
+  },
+  {
+    id: 'ir9td2lz8',
+    content: 'Build Ajax Requests',
+    impact: 1,
+    ease: 8,
+    confidence: 8,
+    average_score: 5.666666666666667,
+    created_at: 1524210786
+  }
+];
