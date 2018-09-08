@@ -16,7 +16,8 @@ function requestDeleteIdea() {
 function deleteIdeaSuccess(id) {
   return {
     type: DELETE_IDEA_SUCCESS,
-    isFetching: false
+    isFetching: false,
+    id
   };
 }
 

@@ -24,9 +24,14 @@ export class IdeasApi {
     }
   }
 
-  static async getIdeas(page) {
+  static async updateIdea(id, content, impact, ease, confidence) {
     try {
-      const { data } = await axiosInstance.get(`/ideas`, { page });
+      const { data } = await axiosInstance.put(`/ideas/${id}`, {
+        content,
+        impact,
+        ease,
+        confidence
+      });
 
       return data;
     } catch (error) {
@@ -34,9 +39,10 @@ export class IdeasApi {
     }
   }
 
-  static async updateIdea(id, content, impact, ease, confidence) {
+  static async getIdeas(page) {
     try {
-      const { data } = await axiosInstance.put(`/ideas/${id}`);
+      const { data } = await axiosInstance.get(`/ideas`, { page });
+
       return data;
     } catch (error) {
       throw error;

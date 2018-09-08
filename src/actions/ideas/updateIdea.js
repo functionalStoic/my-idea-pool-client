@@ -38,7 +38,7 @@ export const updateIdea = ({
 }) => dispatch => {
   dispatch(requestUpdateIdea());
 
-  IdeasApi.updateIdea(content, impact, ease, confidence)
+  IdeasApi.updateIdea(id, content, impact, ease, confidence)
     .then(res => {
       if (res.reason) throw new Error(res.reason);
 
