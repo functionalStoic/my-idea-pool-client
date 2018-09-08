@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
+
+import { deleteIdea, updateIdea } from '../../../../actions';
 
 import Confirm from './confirm.png';
 import Confirm2x from './confirm@2x.png';
@@ -17,31 +19,80 @@ import Delete2x from './delete@2x.png';
 //   created_at: 1524210786
 // }
 
-export default ({ idea }) => (
-  <UlWrapper>
-    <li style={{ flexGrow: 5.25, textAlign: 'left' }}>
-      <span>{idea.content}</span>
-    </li>
-    <li style={{ flexGrow: 1 }}>
-      <Dropdown name="impact" id="impact" defaultValue={idea.impact} />
-    </li>
-    <li style={{ flexGrow: 1 }}>
-      <Dropdown name="ease" id="ease" defaultValue={idea.ease} />
-    </li>
-    <li style={{ flexGrow: 1 }}>
-      <Dropdown
-        name="confidence"
-        id="confidence"
-        defaultValue={idea.confidence}
-      />
-    </li>
-    <li style={{ flexGrow: 0.9 }}>{idea.average_score.toFixed(2)}</li>
-    <li style={{ flexGrow: 1.6, textAlign: 'right' }}>
-      <ConfirmImg src={Confirm} srcSet={`${Confirm2x} 2x`} alt="Confirm Icon" />
-      <DeleteImg src={Delete} srcSet={`${Delete2x} 2x`} alt="Bulb Icon" />
-    </li>
-  </UlWrapper>
-);
+export default class Idea extends Component {
+  state = {
+    content: this.props.idea.content,
+    impact: this.props.idea.impact,
+    ease: this.props.idea.ease,
+    confidence: this.props.idea.confidence
+  };
+
+  handleChange = e => {
+    console.log('e', e);
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  render() {
+    console.log('this.state', this.state);
+    const { idea, dispatch } = this.props;
+    return (
+      <UlWrapper>
+        <li style={{ flexGrow: 5.25, textAlign: 'left' }}>
+          <span>{idea.content}</span>
+        </li>
+        <li style={{ flexGrow: 1 }}>
+          <Dropdown
+            name="impact"
+            id="impact"
+            value={this.state.impact}
+            onChange={this.handleChange}
+          />
+        </li>
+        <li style={{ flexGrow: 1 }}>
+          <Dropdown
+            name="ease"
+            id="ease"
+            value={this.state.ease}
+            onChange={this.handleChange}
+          />
+        </li>
+        <li style={{ flexGrow: 1 }}>
+          <Dropdown
+            name="confidence"
+            id="confidence"
+            value={this.state.confidence}
+            onChange={this.handleChange}
+          />
+        </li>
+        <li style={{ flexGrow: 0.9 }}>{idea.average_score.toFixed(2)}</li>
+        <li style={{ flexGrow: 1.6, textAlign: 'right' }}>
+          <ConfirmImg
+            onClick={() =>
+              dispatch(
+                updateIdea(
+                  idea.id,
+                  this.state.content,
+                  this.state.impact,
+                  this.state.ease,
+                  this.state.confidence
+                )
+              )
+            }
+            src={Confirm}
+            srcSet={`${Confirm2x} 2x`}
+            alt="Confirm Icon"
+          />
+          <DeleteImg
+            onClick={() => dispatch(deleteIdea(idea.id))}
+            src={Delete}
+            srcSet={`${Delete2x} 2x`}
+            alt="Bulb Icon"
+          />
+        </li>
+      </UlWrapper>
+    );
+  }
+}
 
 const ConfirmImg = styled.img`
   width: 19px;
@@ -61,8 +112,8 @@ const Select = styled.select`
   line-height: 19px;
 `;
 
-const Dropdown = ({ name, id, defaultValue }) => (
-  <Select name={name} id={id} defaultValue={defaultValue}>
+const Dropdown = ({ name, id, onChange, value }) => (
+  <Select onChange={onChange} name={name} id={id} value={value}>
     <option value="10">10</option>
     <option value="9">9</option>
     <option value="8">8</option>
