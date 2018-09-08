@@ -3,11 +3,9 @@ import styled from 'styled-components';
 
 import Idea from './Idea';
 
-export default ({
-  ideas = [{ title: 'idea1' }, { title: 'idea2' }, { title: 'idea3' }]
-}) => {
+export default props => {
   return (
-    ideas.length > 0 && (
+    props.ideas.length > 0 && (
       <div>
         <UlWrapper>
           <li style={{ flexGrow: 7.3 }} />
@@ -20,8 +18,8 @@ export default ({
           <li style={{ flexGrow: 2 }} />
         </UlWrapper>
 
-        {ideas.map(idea => (
-          <Idea key={idea.id} idea={idea} />
+        {props.ideas.map(idea => (
+          <Idea key={idea.id} idea={idea} {...props} />
         ))}
       </div>
     )

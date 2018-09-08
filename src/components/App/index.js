@@ -15,7 +15,7 @@ const App = props =>
     <AppWrapper {...props}>
       <Wrapper>
         <Header />
-        <Ideas />
+        <Ideas {...props} />
       </Wrapper>
     </AppWrapper>
   );
@@ -26,8 +26,11 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-const mapStateToProps = ({ auth }) => {
-  return { isAuthenticated: auth.isAuthenticated };
+const mapStateToProps = ({ auth, ideas }) => {
+  return {
+    isAuthenticated: auth.isAuthenticated,
+    ideas: ideas.ideas
+  };
 };
 
 export default connect(mapStateToProps)(App);
