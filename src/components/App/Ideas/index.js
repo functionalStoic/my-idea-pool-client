@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 
 import EmptyState from './EmptyState';
 import IdeaList from './IdeaList';
+import Pagination from './Pagination';
 
 export default props => (
   <Wrapper ideas={props.ideas}>
-    {props.ideas.length > 0 ? <IdeaList {...props} /> : <EmptyState />}
+    {props.ideas.length > 0 ? (
+      <Fragment>
+        <IdeaList {...props} />
+        <Pagination />
+      </Fragment>
+    ) : (
+      <EmptyState />
+    )}
   </Wrapper>
 );
 
