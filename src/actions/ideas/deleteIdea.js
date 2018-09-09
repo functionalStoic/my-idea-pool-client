@@ -34,7 +34,7 @@ export const deleteIdea = id => dispatch => {
 
   IdeasApi.deleteIdea(id)
     .then(res => {
-      if (res.status === 201) {
+      if (res.status === 204) {
         dispatch(deleteIdeaSuccess(id));
       } else {
         throw new Error(res.reason);

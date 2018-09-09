@@ -35,6 +35,7 @@ export const getIdeas = pageNumber => dispatch => {
   IdeasApi.getIdeas(pageNumber)
     .then(res => {
       if (res.reason) throw new Error(res.reason);
+      console.log('res', res);
       dispatch(getIdeasSuccess(res));
     })
     .catch(err => dispatch(getIdeasError(err)));

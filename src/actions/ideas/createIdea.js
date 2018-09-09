@@ -13,10 +13,11 @@ function requestCreateIdea() {
   };
 }
 
-function createIdeaSuccess(idea) {
+function createIdeaSuccess(tempId, idea) {
   return {
     type: CREATE_IDEA_SUCCESS,
     isFetching: false,
+    tempId,
     idea
   };
 }
@@ -29,12 +30,13 @@ function createIdeaError(errorMessage) {
   };
 }
 
-export const createIdea = ({
+export const createIdea = (
+  tempId,
   content,
   impact,
   ease,
   confidence
-}) => dispatch => {
+) => dispatch => {
   dispatch(requestCreateIdea());
 
   IdeasApi.createIdea(content, impact, ease, confidence)
@@ -42,7 +44,7 @@ export const createIdea = ({
       if (res.reason) throw new Error(res.reason);
 
       // Dispatch success action
-      dispatch(createIdeaSuccess(res));
+      dispatch(createIdeaSuccess(tempId, res));
     })
     .catch(err => dispatch(createIdeaError(err)));
 };

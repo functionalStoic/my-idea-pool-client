@@ -10,12 +10,15 @@ import {
   GET_IDEAS_FAILURE,
   UPDATE_IDEA_REQUEST,
   UPDATE_IDEA_SUCCESS,
-  UPDATE_IDEA_FAILURE
+  UPDATE_IDEA_FAILURE,
+  NEW_IDEA_REQUEST,
+  CANCEL_IDEA_REQUEST,
+  EDIT_IDEA_REQUEST
 } from '../constants';
 
 // The ideas reducer
 export default function ideas(
-  state = { isFetching: false, ideas: [...ideaList], errorMessage: undefined },
+  state = { isFetching: false, ideas: [], errorMessage: undefined },
   action
 ) {
   switch (action.type) {
@@ -28,7 +31,9 @@ export default function ideas(
       return {
         ...state,
         isFetching: action.isFetching,
-        ideas: [...state.ideas, action.idea]
+        ideas: state.ideas.map(
+          idea => (idea.id === action.tempId ? { ...action.idea } : idea)
+        )
       };
     case CREATE_IDEA_FAILURE:
       return {
@@ -62,7 +67,7 @@ export default function ideas(
       return {
         ...state,
         isFetching: action.isFetching,
-        ideas
+        ideas: [...action.ideas]
       };
     case GET_IDEAS_FAILURE:
       return {
@@ -89,37 +94,24 @@ export default function ideas(
         isFetching: action.isFetching,
         errorMessage: action.errorMessage
       };
+    case NEW_IDEA_REQUEST:
+      return {
+        ...state,
+        ideas: [action.idea, ...state.ideas]
+      };
+    case CANCEL_IDEA_REQUEST:
+      return {
+        ...state,
+        ideas: state.ideas.filter(idea => idea.id !== action.id)
+      };
+    case EDIT_IDEA_REQUEST:
+      return {
+        ...state,
+        ideas: state.ideas.map(
+          idea => (idea.id === action.id ? { ...idea, status: 'edit' } : idea)
+        )
+      };
     default:
       return state;
   }
 }
-
-const ideaList = [
-  {
-    id: 'ir9td2tvq',
-    content: 'Finish Ideas Layout',
-    impact: 3,
-    ease: 8,
-    confidence: 8,
-    average_score: 6.333333333333333,
-    created_at: 1524210786
-  },
-  {
-    id: 'ir9td2p51',
-    content: 'Build Redux State, Reducers and Actions.',
-    impact: 2,
-    ease: 8,
-    confidence: 8,
-    average_score: 6.0,
-    created_at: 1524210786
-  },
-  {
-    id: 'ir9td2lz8',
-    content: 'Build Ajax Requests',
-    impact: 1,
-    ease: 8,
-    confidence: 8,
-    average_score: 5.666666666666667,
-    created_at: 1524210786
-  }
-];

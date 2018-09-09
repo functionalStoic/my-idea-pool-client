@@ -29,13 +29,13 @@ function updateIdeaError(errorMessage) {
   };
 }
 
-export const updateIdea = ({
+export const updateIdea = (
   id,
   content,
   impact,
   ease,
   confidence
-}) => dispatch => {
+) => dispatch => {
   dispatch(requestUpdateIdea());
 
   IdeasApi.updateIdea(id, content, impact, ease, confidence)
