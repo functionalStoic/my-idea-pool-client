@@ -10,7 +10,7 @@ import Ideas from './Ideas';
 
 class App extends Component {
   componentDidMount() {
-    this.props.dispatch(getIdeas());
+    this.props.dispatch(getIdeas(1));
   }
   render() {
     return !this.props.isAuthenticated ? (
@@ -36,7 +36,8 @@ const mapStateToProps = ({ auth, ideas }) => {
   return {
     isAuthenticated: auth.isAuthenticated,
     isFetching: ideas.isFetching,
-    ideas: ideas.ideas
+    ideas: ideas.ideas,
+    page: ideas.page
   };
 };
 

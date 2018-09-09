@@ -41,7 +41,7 @@ export class IdeasApi {
 
   static async getIdeas(page) {
     try {
-      const { data } = await axiosInstance.get(`/ideas`, { page });
+      const { data } = await axiosInstance.get(`/ideas?page=${page}`);
 
       return data;
     } catch (error) {

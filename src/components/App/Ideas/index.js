@@ -10,7 +10,7 @@ export default props => (
     {props.ideas.length > 0 ? (
       <Fragment>
         <IdeaList {...props} />
-        <Pagination />
+        <Pagination {...props} />
       </Fragment>
     ) : (
       <EmptyState />

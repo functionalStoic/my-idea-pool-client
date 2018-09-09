@@ -67,7 +67,8 @@ export default function ideas(
       return {
         ...state,
         isFetching: action.isFetching,
-        ideas: [...action.ideas]
+        ideas: [...action.ideas],
+        page: action.page
       };
     case GET_IDEAS_FAILURE:
       return {

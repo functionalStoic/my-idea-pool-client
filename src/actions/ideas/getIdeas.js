@@ -13,10 +13,11 @@ function requestGetIdeas() {
   };
 }
 
-function getIdeasSuccess(ideas) {
+function getIdeasSuccess(ideas, page) {
   return {
     type: GET_IDEAS_SUCCESS,
     isFetching: false,
+    page,
     ideas
   };
 }
@@ -29,14 +30,13 @@ function getIdeasError(errorMessage) {
   };
 }
 
-export const getIdeas = pageNumber => dispatch => {
+export const getIdeas = page => dispatch => {
   dispatch(requestGetIdeas());
 
-  IdeasApi.getIdeas(pageNumber)
+  IdeasApi.getIdeas(page)
     .then(res => {
       if (res.reason) throw new Error(res.reason);
-      console.log('res', res);
-      dispatch(getIdeasSuccess(res));
+      dispatch(getIdeasSuccess(res, page));
     })
     .catch(err => dispatch(getIdeasError(err)));
 };
