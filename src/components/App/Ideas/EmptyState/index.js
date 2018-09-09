@@ -1,17 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Bulb from './bulb.png';
-import Bulb2x from './bulb@2x.png';
+import { Bulb, Bulb2x } from './assets';
 
-export default () => {
-  return (
-    <Wrapper>
-      <Img src={Bulb} srcSet={`${Bulb2x} 2x`} alt="Bulb Icon" />
-      Got Ideas?
-    </Wrapper>
-  );
-};
+export default () => (
+  <Wrapper>
+    <BulbImg src={Bulb} srcSet={`${Bulb2x} 2x`} alt="Bulb Icon" />
+    Got Ideas?
+  </Wrapper>
+);
 
 const Wrapper = styled.div`
   font-size: 20px;
@@ -20,7 +17,7 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-const Img = styled.img`
+const BulbImg = styled.img`
   position: relative;
   margin: 37px 94px 13px;
   width: 64px;
