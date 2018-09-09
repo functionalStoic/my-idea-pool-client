@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import { newIdea } from '../../../actions';
 import AddIdeaIcon from './btn_addanidea.png';
 import AddIdeaIcon2x from './btn_addanidea@2x.png';
 
-export default () => {
+export default props => {
   return (
     <Wrapper>
       <Header>
@@ -13,6 +13,7 @@ export default () => {
           src={AddIdeaIcon}
           srcSet={`${AddIdeaIcon2x} 2x`}
           alt="Add Idea Icon"
+          onClick={() => props.dispatch(newIdea())}
         />
       </Header>
       <hr
