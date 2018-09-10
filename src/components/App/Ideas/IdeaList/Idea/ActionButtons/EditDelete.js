@@ -51,6 +51,7 @@ export default class EditDelete extends Component {
 const Li = styled.li`
   flex-grow: 1.6 !important;
   text-align: right !important;
+  cursor: pointer;
 `;
 
 const EditImg = styled.img`
