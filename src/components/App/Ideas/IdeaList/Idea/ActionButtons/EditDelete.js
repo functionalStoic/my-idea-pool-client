@@ -57,11 +57,12 @@ const Li = styled.li`
 const EditImg = styled.img`
   width: 16px;
   height: 16px;
-  padding-left: 22px;
+  cursor: pointer;
+  margin-right: 22px;
 `;
 
 const DeleteImg = styled.img`
   width: 16px;
   height: 16px;
-  padding-left: 22px;
+  cursor: pointer;
 `;

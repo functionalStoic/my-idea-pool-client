@@ -39,10 +39,12 @@ const Li = styled.li`
 const ConfirmImg = styled.img`
   width: 19px;
   height: 14px;
+  margin-right: 22px;
+  cursor: pointer;
 `;
 
 const CancelImg = styled.img`
   width: 16px;
   height: 16px;
-  padding-left: 22px;
+  cursor: pointer;
 `;
