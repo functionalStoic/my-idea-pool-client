@@ -15,6 +15,8 @@ const Wrapper = styled.div`
   color: #2a3842;
   display: flex;
   flex-direction: column;
+  align-self: center;
+  justify-content: center;
 `;
 
 const BulbImg = styled.img`

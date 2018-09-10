@@ -10,7 +10,7 @@ export default ({ page, dispatch, ideas }) => (
       onClick={() => dispatch(getIdeas(page - 1))}
       page={page}
       ideas={ideas}
-      children="previous"
+      children="back"
     />
     {`Page ${page}`}
     <DirectionButton
@@ -27,8 +27,9 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  margin: 0 30%;
   font-size: 20px;
+  margin-top: 25px;
+  width: 100%;
 `;
 
 const DirectionButton = styled.button`
