@@ -9,3 +9,16 @@ Rank Them.
 Make them happen!
 
 🎉🎉🎉🎉🎉🎉🎉🎉🎉🎉
+
+### Breakdown of Project
+
+### Main Packages used: 
+- React
+- Redux
+- React Router v4
+
+### Minor Packages used:
+- Axios
+- Formik
+- Redux-Thunk
+- Styled Components
