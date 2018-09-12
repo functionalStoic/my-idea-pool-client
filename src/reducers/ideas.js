@@ -16,11 +16,14 @@ import {
   EDIT_IDEA_REQUEST
 } from '../constants';
 
+const initialIdeasState = {
+  isFetching: false,
+  ideas: [],
+  errorMessage: undefined
+};
+
 // The ideas reducer
-export default function ideas(
-  state = { isFetching: false, ideas: [], errorMessage: undefined },
-  action
-) {
+export default function ideas(state = initialIdeasState, action) {
   switch (action.type) {
     case CREATE_IDEA_REQUEST:
       return {
