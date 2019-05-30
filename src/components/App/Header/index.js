@@ -8,7 +8,7 @@ export default props => {
   return (
     <Wrapper>
       <Header>
-        <div style={{ margin: '41px 0 47px 111.6px' }}>My Ideas</div>
+        <div style={{ margin: '41px 0 47px 111.6px' }}>My Idea Pool</div>
         <Img
           src={AddIdeaIcon}
           srcSet={`${AddIdeaIcon2x} 2x`}
